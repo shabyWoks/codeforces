@@ -1,0 +1,60 @@
+//Complete this code or write your own from scratch
+import java.util.*;
+import java.io.*;
+import java.math.*;
+
+public class Solution{
+    static StringBuffer s;
+    static Stack<Character> stack;
+    static int[] arr;
+    public static void main(String[] argh) throws Exception{
+        BufferedReader br= new BufferedReader(new InputStreamReader(System.in));
+        s= new StringBuffer(br.readLine().trim());
+        stack= new Stack<>();
+        int len= s.length();
+        arr= new int[len];
+        int currMin= 30;
+        for(int i=len-1; i>=0; i--){
+            char ch = s.charAt(i);
+            int pos= ch - 97;
+            if(pos <= currMin){
+                currMin= pos;
+                arr[i]= -1;
+            }
+            else{
+                arr[i] = currMin;
+            }
+        }
+        StringBuffer u= new StringBuffer();
+        for(int i=0; i<len; i++){
+            if(arr[i] == -1){
+                while(!stack.empty()){
+                    int ch = stack.peek() - 97;
+                    if(ch <= (s.charAt(i) - 97)){
+                        u.append(stack.pop());
+                    }
+                    else{
+                        break;
+                    }
+                }
+                u.append(s.charAt(i));
+            }
+            else{
+                while(!stack.empty()){
+                    int ch = stack.peek() - 97;
+                    if(ch <= arr[i]){
+                        u.append(stack.pop());
+                    }
+                    else{
+                        break;
+                    }
+                }
+                stack.push(s.charAt(i));
+            }
+        }
+        while(!stack.empty()){
+            u.append(stack.pop());
+        }
+        System.out.println(u);
+    }
+}
