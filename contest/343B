@@ -1,0 +1,38 @@
+//Complete this code or write your own from scratch
+import java.util.*;
+import java.io.*;
+import java.math.*;
+
+public class Solution{
+    static StringBuffer s;
+    static Stack<Character> stack;
+    static int[] arr;
+    public static void main(String[] argh) throws Exception{
+        // Reader br = new Reader();
+        BufferedReader br= new BufferedReader(new InputStreamReader(System.in));
+        s= new StringBuffer(br.readLine().trim());
+        stack= new Stack<>();
+        int len= s.length();
+        for(int i=0; i<len; i++){
+            char ch = s.charAt(i);
+            if(stack.empty()){
+                stack.push(ch);
+            }
+            else{
+                if(stack.peek() == ch){
+                    stack.pop();
+                }
+                else{
+                    stack.push(ch);
+                }
+            }
+        }
+        if(!stack.empty()){
+            System.out.println("No");
+        }
+        else{
+            System.out.println("Yes");    
+        }
+        
+    }
+}
