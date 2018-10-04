@@ -1,0 +1,64 @@
+import java.util.*;
+import java.io.*;
+import java.math.*;
+
+public class Solution{
+    public static void main(String[] argh) throws Exception{
+        // Reader br = new Reader();
+        BufferedReader br= new BufferedReader(new InputStreamReader(System.in));
+        
+        long n= Long.parseLong(br.readLine().trim());
+        String s= n+"";
+        int len= s.length();
+
+        int i=0;
+        String dif= "";
+        int sum= 0;
+        if(len == 1){
+            System.out.println(n);
+            
+        }
+        else{
+            while(i<len-1){
+                dif= dif+"9";
+                sum+=9;
+                i++;
+            }
+            
+            int pos= 0;
+            int max= Integer.MIN_VALUE;
+            while(pos <= 9){
+                if(pos == 0){
+                    long diff= n - Long.parseLong(dif);
+                    int sumdif= findSum(diff);
+                    if(sum+sumdif > max) max= sum+sumdif;
+                }
+                else{
+                    dif= pos+dif;
+                    sum += pos;
+                    if(Long.parseLong(dif) > n) break;
+                    long diff= n - Long.parseLong(dif);
+                    int sumdif= findSum(diff);
+                    if(sum+sumdif > max) max= sum+sumdif;
+                    dif= dif.substring(1);
+                    sum -= pos;
+                }
+                pos++;
+            }
+            
+            
+            
+            System.out.println(max);
+        }
+        
+    }
+    private static int findSum(long num){
+        long sum= 0;
+        while(num>0){
+            long d= num%10;
+            sum += d;
+            num /= 10;
+        }
+        return (int)sum;
+    }
+}
