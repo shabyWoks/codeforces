@@ -1,0 +1,40 @@
+import java.util.*;
+import java.io.*;
+import java.math.*;
+
+public class Solution{
+    public static void main(String[] argh) throws Exception{
+        // Reader br = new Reader();
+        BufferedReader br= new BufferedReader(new InputStreamReader(System.in));
+        
+        int n= Integer.parseInt(br.readLine().trim());
+        String num= br.readLine().trim();
+        int num8= 0;
+        for(int i=0; i<n; i++){
+            if(num.charAt(i) == '8'){
+                num8++;
+            }
+        }
+        int count= 0;
+        int rem= n-num8;
+        while(num8 != 0){
+            if(rem >= 10){
+                num8--;
+                rem= rem - 10;
+                count++;
+            }
+            else{
+                int diff= 10 - rem;
+                if(num8 > diff){
+                    num8= num8 - diff;
+                    rem= 0;
+                    num8--;
+                    count++;
+                }
+                else{
+                    break;
+                }
+            }
+        }
+        System.out.println(count);
+    }
